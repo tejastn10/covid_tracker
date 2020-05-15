@@ -5,7 +5,12 @@ import styles from "./App.module.css";
 import { fetchData } from "./api";
 class App extends React.Component {
   state = {
-    data: {},
+    data: {
+      confirmed: { detail: "", value: 0 },
+      deaths: { detail: "", value: 0 },
+      recovered: { detail: "", value: 0 },
+      lastUpdate: new Date(),
+    },
   };
 
   async componentDidMount() {
