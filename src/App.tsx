@@ -1,53 +1,45 @@
-import React from "react";
+import { useState } from 'react'
+import logo from './logo.svg'
+import './App.css'
 
-import { Cards, Chart, CountryPicker } from "./components";
-import styles from "./App.module.css";
-import { fetchData } from "./api";
+function App() {
+  const [count, setCount] = useState(0)
 
-import img from "./images/image.png";
-
-interface country {
-  name: String;
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>Hello Vite + React!</p>
+        <p>
+          <button type="button" onClick={() => setCount((count) => count + 1)}>
+            count is: {count}
+          </button>
+        </p>
+        <p>
+          Edit <code>App.tsx</code> and save to test HMR updates.
+        </p>
+        <p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          {' | '}
+          <a
+            className="App-link"
+            href="https://vitejs.dev/guide/features.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vite Docs
+          </a>
+        </p>
+      </header>
+    </div>
+  )
 }
 
-class App extends React.Component {
-  state = {
-    data: {
-      confirmed: { detail: "", value: 0 },
-      deaths: { detail: "", value: 0 },
-      recovered: { detail: "", value: 0 },
-      lastUpdate: new Date(),
-    },
-    country: "",
-  };
-
-  async componentDidMount() {
-    const fetchedData = await fetchData();
-
-    this.setState({ data: fetchedData });
-  }
-
-  handleCountryChange = async (country: country) => {
-    const fetchedData = await fetchData(country);
-
-    this.setState({ data: fetchedData, country: country });
-  };
-  render() {
-    const { data, country } = this.state;
-
-    console.log(country);
-
-    return (
-      <div>
-        <div className={styles.container}>
-          <img className={styles.image} src={img} alt="Covid" />
-          <Cards {...data} />
-          <CountryPicker handleCountryChange={this.handleCountryChange} />
-          <Chart {...data} {...country} />
-        </div>
-      </div>
-    );
-  }
-}
-
-export default App;
+export default App
